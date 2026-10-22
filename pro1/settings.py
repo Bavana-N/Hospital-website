@@ -23,10 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-krr7*__&r6i(4^^d3$$48rcf5&xp6)%v%(h&q*vp7tx3euzt+3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['hospitala2b-website.onrender.com']
-
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'hospitala2b-website.onrender.com',
+]
 
 # Application definition
 
