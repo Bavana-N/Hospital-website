@@ -406,14 +406,14 @@
                 <img src="{% static 'images/car3.png' %}" alt="Hospital Ward">
                 <div class="carousel-caption-custom">
                     <h1 class="display-4 fw-bold text-white">
-                       Advanced Medical
+                        Advanced Medical
                     </h1>
 
                     <h2 class="fw-bold text-info">
-                       Technology & Facilities
+                        Technology & Facilities
                     </h2>
                     <p>Equipped with modern operation theatres, diagnostic labs,
-        and advanced medical equipment to ensure the highest quality care.</p>
+                        and advanced medical equipment to ensure the highest quality care.</p>
 
                     <div class="carousel-btn-group">
                         <a href="#service-section" class="btn-hero-primary">View Departments <i
@@ -427,14 +427,14 @@
                 <img src="{% static 'images/car4.png' %}" alt="Hospital Ward">
                 <div class="carousel-caption-custom">
                     <h1 class="display-4 fw-bold text-white">
-                          24×7 Emergency
+                        24×7 Emergency
                     </h1>
 
                     <h2 class="fw-bold text-info">
                         Always Here When You Need Us
                     </h2>
                     <p>Our emergency department is available around the clock with
-        experienced medical professionals ready to provide immediate care.</p>
+                        experienced medical professionals ready to provide immediate care.</p>
 
                     <div class="carousel-btn-group">
                         <a href="#contact" class="btn-hero-primary"> Emergency Contact <i
@@ -456,38 +456,38 @@
 
     <!-- Features -->
     <section id="ser-section" class="py-5">
-    <div class="container mt-5">
-        <div class="row g-4">
-            <div class="col-md-3">
-                <div class="feature-box text-center" style="height:240px;">
-                    <i class="fa-solid fa-user-doctor"></i>
-                    <h5>Expert Doctors</h5>
-                    <p>Experienced specialists providing quality healthcare.</p>
+        <div class="container mt-5">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="feature-box text-center" style="height:240px;">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <h5>Expert Doctors</h5>
+                        <p>Experienced specialists providing quality healthcare.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="feature-box text-center">
-                    <i class="fa-solid fa-truck-medical"></i>
-                    <h5>24/7 Emergency</h5>
-                    <p>Emergency care available every day and night.</p>
+                <div class="col-md-3">
+                    <div class="feature-box text-center">
+                        <i class="fa-solid fa-truck-medical"></i>
+                        <h5>24/7 Emergency</h5>
+                        <p>Emergency care available every day and night.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="feature-box text-center">
-                    <i class="fa-solid fa-heart-pulse"></i>
-                    <h5>Advanced Technology</h5>
-                    <p>Modern medical equipment for accurate diagnosis and treatment.</p>
+                <div class="col-md-3">
+                    <div class="feature-box text-center">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        <h5>Advanced Technology</h5>
+                        <p>Modern medical equipment for accurate diagnosis and treatment.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="feature-box text-center">
-                    <i class="fa-solid fa-hand-holding-heart"></i>
-                    <h5>Patient First</h5>
-                    <p>Compassionate care with comfort and safety for every patient.</p>
+                <div class="col-md-3">
+                    <div class="feature-box text-center">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                        <h5>Patient First</h5>
+                        <p>Compassionate care with comfort and safety for every patient.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </section>
     <section class="py-5 bg-light">
         <div class="container">
@@ -555,7 +555,7 @@
                 {% for d in department %}
                 <div class="col-lg-3 col-md-6">
                     <div class="card h-100 border-0 shadow-lg rounded-4">
-                        <img src="{{ d.image.url }}" class="card-img-top" alt="{{ d.name }}">
+                        <img src="{% static d.image.name %}" class="card-img-top" alt="{{ d.name }}">
                         <div class="card-body text-center">
                             <h5 class="fw-bold">{{ d.name }}</h5>
                             <p class="text-muted">{{ d.desc|truncatewords:18 }}</p>
@@ -580,7 +580,12 @@
                 {% for doc in doctor %}
                 <div class="col-lg-3 col-md-6">
                     <div class="card h-100 border-0 shadow-lg rounded-4">
-                        <img src="{{ doc.image.url }}" class="card-img-top rounded-top-4" alt="{{ doc.name }}">
+                        {% if doc.name == "Dr.John Mathew" %}
+                        <img src="{% static 'Doctors/John Mathew.jpeg' %}" class="card-img-top rounded-top-4"
+                            alt="{{ doc.name }}">
+                        {% else %}
+                        <img src="{% static doc.image.name %}" class="card-img-top rounded-top-4" alt="{{ doc.name }}">
+                        {% endif %}
                         <div class="card-body text-center">
                             <h5 class="fw-bold">{{ doc.name }}</h5>
                             <p class="text-primary fw-semibold">{{ doc.specialization }}</p>
