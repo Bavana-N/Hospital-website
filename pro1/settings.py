@@ -29,6 +29,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'hospitala2b-website.onrender.com',
+    'hospital-website-blond-psi.vercel.app',
+    '.vercel.app',
 ]
 
 # Application definition
