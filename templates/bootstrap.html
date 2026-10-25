@@ -1,0 +1,865 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>A2B Hospital</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f9ff;
+        }
+
+        /* --- Topbar --- */
+        .topbar-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        /* --- Navbar Container --- */
+        .custom-navbar-wrapper {
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 1.5rem;
+            margin-top: 10px;
+        }
+
+        .navbar-main-box {
+            background: linear-gradient(90deg, #002f7a, #0047b3, #005ce6);
+            border-radius: 0px 16px 16px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 24px;
+            height: 76px;
+            /* Slightly adjusted height for precise balancing */
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        /* --- Perfectly Styled Left White Logo Box matching image_fce6b5.jpg --- */
+        .brand-block {
+            background: #ffffff;
+            border-radius: 16px 0px 0px 16px;
+            padding: 0 20px 0 24px;
+            display: flex;
+            align-items: center;
+            height: 76px;
+            /* Same height as navbar for flawless horizontal look */
+            box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        /* Real logo container fitting inside the box beautifully */
+        .brand-logo-img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .brand-block h2 {
+            font-size: 20px;
+            color: #002f7a;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .brand-block small {
+            font-size: 10px;
+            letter-spacing: 0.3px;
+            display: block;
+            margin-top: 2px;
+            color: #64748b;
+        }
+
+        /* Nav link items */
+        .nav-menu-list {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu-item-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-menu-item-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .nav-menu-item-link.active {
+            background: #ffffff;
+            color: #0047b3 !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Action Buttons */
+        .btn-nav-appointment {
+            background: #00b4d8;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 180, 216, 0.3);
+            text-decoration: none;
+        }
+
+        .btn-nav-logout {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+            font-size: 13px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        /* --- Carousel Area --- */
+        .carousel-item img {
+            width: 100%;
+            height: 700px;
+            object-fit: cover;
+        }
+
+        .carousel-caption-custom {
+            position: absolute;
+            top: 55%;
+            left: 5%;
+            transform: translateY(-50%);
+            z-index: 10;
+            max-width: 580px;
+
+            /* 1. Change text color to white so it's readable on dark banner images */
+            color: #ffffff;
+
+            /* 2. Make background highly transparent white (0.2 alpha) */
+            background: rgba(255, 255, 255, 0.2);
+
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+
+
+
+            /* 3. Make the border subtle and transparent */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .carousel-caption-custom h1 {
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .carousel-caption-custom p {
+            font-size: 15px;
+            color: #feffff;
+            line-height: 1.6;
+            margin: 15px 0 25px 0;
+        }
+
+        .carousel-btn-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-hero-primary {
+            background: #0047b3;
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 71, 179, 0.3);
+        }
+
+        .btn-hero-outline {
+            background: #ffffff;
+            color: #0047b3;
+            border: 1px solid #cbd5e1;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .carousel-indicators [data-bs-target] {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+        }
+
+        .carousel-indicators .active {
+            background-color: #0047b3;
+            width: 24px;
+            border-radius: 5px;
+        }
+
+        .feature-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+            transition: .4s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-box i {
+            font-size: 45px;
+            color: #0d6efd;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: .4s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, .18);
+        }
+
+        .card img {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        footer {
+            background: #0d3b66;
+            color: white;
+            padding: 50px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="topbar-container py-2">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-4">
+                <span><i class="fa-solid fa-location-dot text-primary me-1"></i> Kochi, Kerala</span>
+                <span><i class="fa-solid fa-phone text-primary me-1"></i> +91 98765 43210</span>
+                <span><i class="fa-solid fa-envelope text-primary me-1"></i> info@a2bhospital.com</span>
+                <span><i class="fa-regular fa-clock text-primary me-1"></i> 24/7 Emergency Services</span>
+            </div>
+            <div class="d-flex gap-3">
+                <a href="#" class="text-secondary"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-secondary"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unified Navbar / Branding Header Layer -->
+    <div class="custom-navbar-wrapper">
+        <div class="d-flex align-items-center no-gutters">
+
+            <!-- Dynamic Left Branding Block -->
+            <div class="brand-block">
+                <img src="{% static 'images/logo.jpeg' %}" class="brand-logo-img me-3" alt="A2B Logo">
+                <div>
+                    <h2 class="fw-bold mb-0">A2B Hospital</h2>
+                    <small class="text-uppercase fw-semibold">Hospital & Wellness Center</small>
+                </div>
+            </div>
+
+            <!-- Right Blue Nav Belt -->
+            <div class="navbar-main-box flex-grow-1">
+                <ul class="nav-menu-list">
+                    <li><a href="{% url 'home' %}" class="nav-menu-item-link active"><i class="fa-solid fa-house"></i>
+                            Home</a></li>
+                    <li><a href="#doctors-section" class="nav-menu-item-link"><i class="fa-solid fa-user-doctor"></i>
+                            Doctors</a></li>
+                    <li><a href="#ser-section" class="nav-menu-item-link"><i class="fa-solid fa-heart-pulse"></i>
+                            Services</a></li>
+                    <li><a href="#service-section" class="nav-menu-item-link"><i class="fa-solid fa-hospital"></i>
+                            Departments</a></li>
+                    <li><a href="#contact" class="nav-menu-item-link"><i class="fa-solid fa-phone"></i> Contact</a></li>
+                </ul>
+
+                <div class="d-flex gap-2 align-items-center">
+                    <a href="#doctors-section" class="btn-nav-appointment">
+                        <i class="fa-solid fa-calendar-check"></i> Book Appointment
+                    </a>
+                    <a href="{% url 'logout' %}" class="btn-nav-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Carousel Section -->
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="3"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'images/car1.jpg' %}" alt="Hospital Exterior">
+
+                <div class="carousel-caption-custom">
+                    <h1 class="display-4 fw-bold text-white">
+                        World-Class
+                        Healthcare
+                    </h1>
+
+                    <h2 class="fw-bold text-info">
+                        with Compassion &
+                        Excellence
+                    </h2>
+                    <p>A2B Hospital is committed to providing world-class healthcare with advanced technology and a
+                        patient-first approach.</p>
+
+                    <div class="carousel-btn-group">
+                        <a href="#service-section" class="btn-hero-primary">Explore Services <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#doctors-section" class="btn-hero-outline"><i class="fa-solid fa-user"></i> Book
+                            Consultation</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="{% static 'images/car2.png' %}" alt="Hospital Corridor">
+                <div class="carousel-caption-custom">
+                    <h1 class="display-4 fw-bold text-white">
+                        Expert Doctors
+                    </h1>
+
+                    <h2 class="fw-bold text-info">
+                        Caring Beyond Treatment
+                    </h2>
+                    <p>Our highly qualified specialists provide personalized treatment,
+                        accurate diagnosis, and compassionate care for every patient.</p>
+
+                    <div class="carousel-btn-group">
+                        <a href="#doctors-section" class="btn-hero-primary">Meet Our Doctors <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#contact" class="btn-hero-outline"><i class="fa-solid fa-user"></i>Contact
+                            Us</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="{% static 'images/car3.png' %}" alt="Hospital Ward">
+                <div class="carousel-caption-custom">
+                    <h1 class="display-4 fw-bold text-white">
+                        Advanced Medical
+                    </h1>
+
+                    <h2 class="fw-bold text-info">
+                        Technology & Facilities
+                    </h2>
+                    <p>Equipped with modern operation theatres, diagnostic labs,
+                        and advanced medical equipment to ensure the highest quality care.</p>
+
+                    <div class="carousel-btn-group">
+                        <a href="#service-section" class="btn-hero-primary">View Departments <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#doctors-section" class="btn-hero-outline"><i class="fa-solid fa-user"></i> Book
+                            Consultation</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/car4.png' %}" alt="Hospital Ward">
+                <div class="carousel-caption-custom">
+                    <h1 class="display-4 fw-bold text-white">
+                        24×7 Emergency
+                    </h1>
+
+                    <h2 class="fw-bold text-info">
+                        Always Here When You Need Us
+                    </h2>
+                    <p>Our emergency department is available around the clock with
+                        experienced medical professionals ready to provide immediate care.</p>
+
+                    <div class="carousel-btn-group">
+                        <a href="#contact" class="btn-hero-primary"> Emergency Contact <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#doctors-section" class="btn-hero-outline"><i class="fa-solid fa-user"></i> Book
+                            Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
+        </button>
+    </div>
+
+    <!-- Features -->
+    <section id="ser-section" class="py-5">
+        <div class="container mt-5">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="feature-box text-center" style="height:240px;">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <h5>Expert Doctors</h5>
+                        <p>Experienced specialists providing quality healthcare.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box text-center">
+                        <i class="fa-solid fa-truck-medical"></i>
+                        <h5>24/7 Emergency</h5>
+                        <p>Emergency care available every day and night.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box text-center">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        <h5>Advanced Technology</h5>
+                        <p>Modern medical equipment for accurate diagnosis and treatment.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-box text-center">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                        <h5>Patient First</h5>
+                        <p>Compassionate care with comfort and safety for every patient.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5 bg-light">
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-6">
+                    <img src="{% static 'images/choose us.png' %}" class="img-fluid rounded-4 shadow-lg">
+                </div>
+
+                <div class="col-lg-6">
+
+                    <h6 class="text-primary fw-bold">WHY CHOOSE US</h6>
+
+                    <h2 class="fw-bold mb-4">
+                        Quality Healthcare
+                        With Compassion
+                    </h2>
+
+                    <p class="text-muted">
+                        Our experienced doctors, advanced technology and patient-first
+                        approach ensure the best healthcare for every patient.
+                    </p>
+
+                    <div class="row mt-4">
+
+                        <div class="col-6 mb-3">
+                            <i class="fa-solid fa-circle-check text-primary"></i>
+                            Experienced Doctors
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <i class="fa-solid fa-circle-check text-primary"></i>
+                            Modern Equipment
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <i class="fa-solid fa-circle-check text-primary"></i>
+                            24×7 Emergency
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <i class="fa-solid fa-circle-check text-primary"></i>
+                            Patient Care
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Departments -->
+    <section id="service-section" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-uppercase text-primary fw-bold">OUR DEPARTMENTS</h6>
+                <h2 class="display-5 fw-bold">Medical Departments</h2>
+                <p class="text-muted">Choose the department and book your consultation.</p>
+            </div>
+
+            <div class="row g-4">
+                {% for d in department %}
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 border-0 shadow-lg rounded-4">
+
+                        {% if d.name == "Neurology" %}
+                        <img src="{% static 'Dept/moola.jpg' %}" class="card-img-top" alt="{{ d.name }}">
+
+                        {% elif d.name == "Orthopedics" %}
+                        <img src="{% static 'Dept/ortho.jpg' %}" class="card-img-top" alt="{{ d.name }}">
+
+                        {% elif d.name == "Pediatrics" %}
+                        <img src="{% static 'Dept/pedia.jpg' %}" class="card-img-top" alt="{{ d.name }}">
+
+                        {% elif d.name == "Cardiology" %}
+                        <img src="{% static 'Dept/heart.jpeg' %}" class="card-img-top" alt="{{ d.name }}">
+
+                        {% else %}
+                        <img src="{% static d.image.name %}" class="card-img-top" alt="{{ d.name }}">
+                        {% endif %}
+
+                        <div class="card-body text-center">
+                            <h5 class="fw-bold">{{ d.name }}</h5>
+                            <p class="text-muted">{{ d.desc|truncatewords:18 }}</p>
+                            <a href="{% url 'cardiology' d.id %}" class="btn btn-primary rounded-pill px-4">
+                                View Details
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>No departments available.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors -->
+    <section id="doctors-section" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-primary fw-bold">OUR SPECIALISTS</h6>
+                <h2 class="fw-bold">Meet Our Doctors</h2>
+                <p class="text-muted">
+                    Highly experienced doctors dedicated to your health.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                {% for doc in doctor %}
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 border-0 shadow-lg rounded-4">
+
+                        {% if doc.name == "Dr.John Mathew" %}
+                        <img src="{% static 'Doctors/John Mathew.jpeg' %}" class="card-img-top rounded-top-4"
+                            alt="{{ doc.name }}">
+
+                        {% elif doc.name == "Dr.Sara Thomas" %}
+                        <img src="{% static 'Doctors/Sara.jpeg' %}" class="card-img-top rounded-top-4"
+                            alt="{{ doc.name }}">
+
+                        {% elif doc.name == "Dr.John Logan" %}
+                        <img src="{% static 'Doctors/logan.jpeg' %}" class="card-img-top rounded-top-4"
+                            alt="{{ doc.name }}">
+
+                        {% elif doc.name == "Dr.Maria George" %}
+                        <img src="{% static 'Doctors/Maria.jpeg' %}" class="card-img-top rounded-top-4"
+                            alt="{{ doc.name }}">
+
+                        {% else %}
+                        <img src="{% static doc.image.name %}" class="card-img-top rounded-top-4" alt="{{ doc.name }}">
+                        {% endif %}
+
+                        <div class="card-body text-center">
+                            <h5 class="fw-bold">{{ doc.name }}</h5>
+                            <p class="text-primary fw-semibold">
+                                {{ doc.specialization }}
+                            </p>
+                            <p class="text-warning fs-5">★★★★★</p>
+                            <a href="{% url 'book_appo1' doc.id %}" class="btn btn-primary rounded-pill px-4">
+                                Book Appointment
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>No doctors available.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors -->
+    <!-- <section id="doctors-section" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-primary fw-bold">OUR SPECIALISTS</h6>
+                <h2 class="fw-bold">Meet Our Doctors</h2>
+                <p class="text-muted">Highly experienced doctors dedicated to your health.</p>
+            </div>
+            <div class="row g-4">
+                {% for doc in doctor %}
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 border-0 shadow-lg rounded-4">
+                        <img src="{% static doc.image.name %}" class="card-img-top rounded-top-4" alt="{{ doc.name }}">
+                        <div class="card-body text-center">
+                            <h5 class="fw-bold">{{ doc.name }}</h5>
+                            <p class="text-primary fw-semibold">{{ doc.specialization }}</p>
+                            <p class="text-warning fs-5">★★★★★</p>
+                            <a href="{% url 'book_appo1' doc.id %}" class="btn btn-primary rounded-pill px-4">Book
+                                Appointment</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section> -->
+    <!-- reviews -->
+    <section class="py-5">
+
+        <div class="container">
+
+            <div class="text-center mb-5">
+
+                <h6 class="text-primary fw-bold">
+                    PATIENT REVIEWS
+                </h6>
+
+                <h2 class="fw-bold mb-3" style="font-size:42px;">
+                    What Our Patients Say
+                </h2>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-lg rounded-4 p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <h5>Rahul Kumar</h5>
+                        </div>
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-muted">
+                            Excellent doctors and friendly staff. Highly recommended.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow rounded-4 p-4 h-100">
+                        <h5>
+                            Priya Sharma
+                        </h5>
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>
+                            Very clean hospital with advanced facilities.
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card border-0 shadow rounded-4 p-4 h-100">
+                        <h5>
+                            Mohammed Ali
+                        </h5>
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>
+                            Quick emergency response and caring doctors.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-primary fw-bold">FAQ</h6>
+                <h2 class="fw-bold">Frequently Asked Questions</h2>
+            </div>
+            <div class="accordion" id="faq">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#q1">How can I book
+                            an appointment?</button>
+                    </h2>
+                    <div id="q1" class="accordion-collapse collapse show">
+                        <div class="accordion-body">Book online through our website or call our hospital.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q2">Is
+                            emergency service available?</button>
+                    </h2>
+                    <div id="q2" class="accordion-collapse collapse">
+                        <div class="accordion-body">Yes. Emergency services are available 24×7.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q3">Do you
+                            accept insurance?</button>
+                    </h2>
+                    <div id="q3" class="accordion-collapse collapse">
+                        <div class="accordion-body">Yes. Most major insurance providers are accepted.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="mt-5 text-white" style="background:#0d3b66;">
+        <div class="col-lg-12 text-center">
+
+            <h3 class="fw-bold">
+                Ready to Book an Appointment?
+            </h3>
+
+            <p class="text-light">
+                Your health is our priority.
+                Schedule your consultation today.
+            </p>
+
+            <a href="#doctors-section" class="btn btn-light rounded-pill px-5">
+                Book Now
+            </a>
+
+        </div>
+
+        <hr class="my-5">
+
+        </div>
+        <div class="container py-5">
+            <div class="row mb-5">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="fw-bold">A2B Hospital</h3>
+                    <p>Providing world-class healthcare with advanced technology, experienced doctors and compassionate
+                        patient care.</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3 fs-4"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white me-3 fs-4"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white me-3 fs-4"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white fs-4"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h4 class="fw-bold">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a>
+                        </li>
+                        <li class="mb-2"><a href="#service-section"
+                                class="text-white text-decoration-none">Departments</a></li>
+                        <li class="mb-2"><a href="#doctors-section" class="text-white text-decoration-none">Doctors</a>
+                        </li>
+                        <li class="mb-2"><a href="#contact" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h4 class="fw-bold">Contact Information</h4>
+                    <p><i class="fa-solid fa-location-dot me-2"></i> Kochi, Kerala</p>
+                    <p><i class="fa-solid fa-phone me-2"></i> +91 9876543210</p>
+                    <p><i class="fa-solid fa-envelope me-2"></i> info@a2bhospital.com</p>
+                    <p><i class="fa-solid fa-clock me-2"></i> Open 24 Hours</p>
+                </div>
+            </div>
+            <hr class="border-light">
+            <div class="text-center">
+                <p class="mb-0">© 2026 A2B Hospital. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
